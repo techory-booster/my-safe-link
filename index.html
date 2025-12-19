@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biztonságos Átirányítás Folyamatban...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Biztonságos Átirányítás Folyamatban...</h1>
+        <p>A rendszer ellenőrzi és átirányítja Önt a céloldalra. Kérjük, várjon <span id="countdown">3</span> másodpercet.</p>
+        <div class="spinner"></div>
+        <p>Ha az átirányítás nem indul el automatikusan, kattintson az alábbi linkre:</p>
+        <a id="redirectLink" href="#">Kattintson ide a folytatáshoz</a>
+    </div>
+
+    <script>
+        // Cserélje ki a TARGET_URL-t a burkolni kívánt eredeti linkre
+        const TARGET_URL = "https://www.facebook.com/"; 
+        const DELAY_SECONDS = 3; // Várakozási idő másodpercben
+
+        document.getElementById('redirectLink').href = TARGET_URL;
+
+        let countdown = DELAY_SECONDS;
+        const countdownElement = document.getElementById('countdown');
+
+        function updateCountdown() {
+            countdownElement.textContent = countdown;
+            if (countdown <= 0) {
+                // Átirányítás a várakozási idő után
+                window.location.replace(TARGET_URL);
+            } else {
+                countdown--;
+                setTimeout(updateCountdown, 1000);
+            }
+        }
+
+        // Visszaszámlálás indítása
+        setTimeout(updateCountdown, 1000);
+    </script>
+</body>
+</html>
